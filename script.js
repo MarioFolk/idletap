@@ -1,9 +1,20 @@
-﻿let points = 0;
+﻿// load saved state
+let points = Number(localStorage.getItem("points")) || 0;
 
 const pointsEl = document.getElementById("points");
 const tapBtn = document.getElementById("tapBtn");
 
-tapBtn.onclick = () => {
-  points++;
+// update UI
+function update() {
   pointsEl.textContent = points;
-};
+}
+
+// tap button
+tapBtn.addEventListener("click", () => {
+  points++;
+  localStorage.setItem("points", points);
+  update();
+});
+
+// init
+update();
