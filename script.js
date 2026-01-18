@@ -44,8 +44,10 @@ prestigeBtn.addEventListener("click", () => {
     incomePerSecond = 1;
     upgradeCost = 50;
     render();
+    showDonate(); // 👈 TU
   }
 });
+
 
 // idle
 setInterval(() => {
@@ -54,3 +56,11 @@ setInterval(() => {
 }, 1000);
 
 render();
+
+function showDonate() {
+  document.getElementById("donatePopup").style.display = "flex";
+}
+
+function closeDonate() {
+  document.getElementById("donatePopup").style.display = "none";
+}
