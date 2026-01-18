@@ -1,4 +1,10 @@
-﻿let points = Number(localStorage.getItem("points")) || 0;
+﻿// Detect supporter on page load
+if (localStorage.getItem("supported") === "yes") {
+  console.log("❤️ Supporter detected");
+}
+
+let donateShown = false;
+let points = Number(localStorage.getItem("points")) || 0;
 let incomePerSecond = Number(localStorage.getItem("income")) || 1;
 let upgradeCost = Number(localStorage.getItem("upgradeCost")) || 50;
 let prestige = Number(localStorage.getItem("prestige")) || 0;
@@ -58,9 +64,17 @@ setInterval(() => {
 render();
 
 function showDonate() {
+  if (donateShown) return;
+  donateShown = true;
   document.getElementById("donatePopup").style.display = "flex";
 }
 
 function closeDonate() {
   document.getElementById("donatePopup").style.display = "none";
 }
+
+document.querySelectorAll('a[href*="buymeacoffee"]').forEach(link => {
+  link.addEventListener("click", () => {
+    localStorage.setItem("supported", "yes");
+  });
+});
