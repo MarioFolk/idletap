@@ -1,18 +1,25 @@
 ﻿let points = Number(localStorage.getItem("points")) || 0;
 let incomePerSecond = Number(localStorage.getItem("income")) || 1;
 let upgradeCost = Number(localStorage.getItem("upgradeCost")) || 50;
+let prestige = Number(localStorage.getItem("prestige")) || 0;
 
 const pointsEl = document.getElementById("points");
 const incomeEl = document.getElementById("income");
+const prestigeEl = document.getElementById("prestige");
 const tapBtn = document.getElementById("tapBtn");
 const upgradeBtn = document.getElementById("upgradeBtn");
+const prestigeBtn = document.getElementById("prestigeBtn");
 
 function render() {
   pointsEl.textContent = points;
-  incomeEl.textContent = incomePerSecond;
+  incomeEl.textContent = incomePerSecond * (1 + prestige);
+  prestigeEl.textContent = prestige;
+
   localStorage.setItem("points", points);
   localStorage.setItem("income", incomePerSecond);
   localStorage.setItem("upgradeCost", upgradeCost);
+  localStorage.setItem("prestige", prestige);
+
   upgradeBtn.textContent = `Buy +5/sec (${upgradeCost})`;
 }
 
@@ -30,9 +37,19 @@ upgradeBtn.addEventListener("click", () => {
   }
 });
 
+prestigeBtn.addEventListener("click", () => {
+  if (points >= 1000) {
+    prestige++;
+    points = 0;
+    incomePerSecond = 1;
+    upgradeCost = 50;
+    render();
+  }
+});
+
 // idle
 setInterval(() => {
-  points += incomePerSecond;
+  points += incomePerSecond * (1 + prestige);
   render();
 }, 1000);
 
