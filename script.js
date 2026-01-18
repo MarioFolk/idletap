@@ -16,7 +16,7 @@ const supporterBadge = document.getElementById("supporterBadge");
 
 // ======= RENDER FUNKCIA =======
 function render() {
-  pointsEl.textContent = points;
+  pointsEl.textContent = Math.floor(points);
   incomeEl.textContent = Math.floor(incomePerSecond * (1 + prestige));
   prestigeEl.textContent = prestige;
 
